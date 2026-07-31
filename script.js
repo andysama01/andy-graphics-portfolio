@@ -43,13 +43,14 @@
   ];
 
   function runEnhancementsSoon() {
-    [120, 450, 1000, 1800].forEach(delay => setTimeout(runEnhancements, delay));
+    [80, 220, 500, 1000, 1800, 3200].forEach(delay => setTimeout(runEnhancements, delay));
   }
 
   function runEnhancements() {
     addPortfolioEnhancementStyles();
     addUploadedLogosFromFolder();
-    addClientMetricWithAnimation();
+    keepSingleAnimatedClientMetric();
+    watchForClientDuplicates();
     addPsychologyCertificate();
     addFashionModelVisuals();
     wireUploadedCards();
@@ -90,9 +91,10 @@
     style.id = 'portfolio-enhancement-style';
     style.textContent = `
       .hero-meta{grid-template-columns:repeat(4,1fr)}
-      .client-global-stat strong,.client-count-number{color:#fff}
-      .client-global-stat span{max-width:165px}
-      .client-count-number{display:inline-block;min-width:3.1ch}
+      .client-global-stat strong,.client-count-number{color:#fff;font-weight:800}
+      .client-count-number{display:inline-block;min-width:3.2ch}
+      .client-plus{color:#d80000;font-weight:900;margin-left:1px}
+      .client-global-stat span:last-child{max-width:165px}
       .fashion-model-note{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.12)!important;background:linear-gradient(145deg,rgba(185,0,0,.14),rgba(255,255,255,.04))!important}
       .fashion-model-note:after{content:'MODEL';position:absolute;right:18px;top:14px;font-size:.66rem;letter-spacing:.22em;color:rgba(255,255,255,.28)}
       .uploaded-logo .logo-media{min-height:230px;padding:28px;display:flex;align-items:center;justify-content:center;background:#fff}
@@ -100,7 +102,7 @@
       .uploaded-logo .logo-media img{max-width:100%;max-height:190px;object-fit:contain;filter:none!important}
       .uploaded-logo .logo-caption{background:linear-gradient(135deg,rgba(185,0,0,.94),rgba(13,13,13,.96));color:#fff}
       .uploaded-logo .logo-caption p{color:#ffd8d8}.uploaded-logo .logo-caption h3,.uploaded-logo .logo-caption span{color:#fff}
-      @media(max-width:760px){.hero-meta{grid-template-columns:1fr}.client-global-stat span{max-width:none}}
+      @media(max-width:760px){.hero-meta{grid-template-columns:1fr}.client-global-stat span:last-child{max-width:none}}
     `;
     document.head.appendChild(style);
   }
@@ -131,36 +133,67 @@
     if (cards) grid.insertAdjacentHTML('afterbegin', cards);
   }
 
-  function addClientMetricWithAnimation() {
+  function isClientMetric(element) {
+    if (!element || element.parentElement?.classList?.contains('client-cloud')) return false;
+    const text = (element.textContent || '').replace(/\s+/g, ' ').trim();
+    return element.classList?.contains('client-global-stat') || /clients worked with globally/i.test(text);
+  }
+
+  function keepSingleAnimatedClientMetric() {
     const heroMeta = document.querySelector('.hero-meta');
     if (!heroMeta) return;
 
-    let stat = heroMeta.querySelector('.client-global-stat');
-    if (!stat) {
-      stat = document.createElement('div');
-      stat.className = 'client-global-stat';
-      heroMeta.appendChild(stat);
+    const clientItems = Array.from(heroMeta.children).filter(isClientMetric);
+    let stat = clientItems[0] || document.createElement('div');
+    stat.className = `${stat.className || ''} client-global-stat`.trim();
+
+    clientItems.slice(1).forEach(item => item.remove());
+
+    if (!stat.parentElement) {
+      const firstMetric = heroMeta.children[0] || null;
+      if (firstMetric?.nextSibling) heroMeta.insertBefore(stat, firstMetric.nextSibling);
+      else heroMeta.appendChild(stat);
     }
 
-    stat.innerHTML = '<strong><span class="client-count-number" data-count-target="173">0</span>+</strong><span>Clients worked with globally</span>';
+    const firstMetric = heroMeta.children[0];
+    if (firstMetric && firstMetric !== stat && firstMetric.nextElementSibling !== stat) {
+      heroMeta.insertBefore(stat, firstMetric.nextElementSibling);
+    }
+
+    if (stat.dataset.metricValue !== '300') {
+      stat.innerHTML = '<strong><span class="client-count-number" data-count-target="300">0</span><span class="client-plus">+</span></strong><span>Clients worked with globally</span>';
+      stat.dataset.metricValue = '300';
+      stat.dataset.counterStarted = '';
+      stat.dataset.counterDone = '';
+    }
 
     const number = stat.querySelector('.client-count-number');
-    if (!number || number.dataset.animated === 'true') return;
-    number.dataset.animated = 'true';
+    if (!number || stat.dataset.counterStarted === 'true' || stat.dataset.counterDone === 'true') return;
+
+    stat.dataset.counterStarted = 'true';
+    animateClientCount(number, stat);
+  }
+
+  function animateClientCount(number, stat) {
+    const finish = () => {
+      number.textContent = '300';
+      stat.dataset.counterDone = 'true';
+    };
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      finish();
+      return;
+    }
 
     const startCounter = () => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        number.textContent = '173';
-        return;
-      }
-
-      const duration = 1400;
+      const duration = 1500;
       const startTime = performance.now();
       const animate = now => {
         const progress = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        number.textContent = String(Math.round(173 * eased));
+        number.textContent = String(Math.round(300 * eased));
         if (progress < 1) requestAnimationFrame(animate);
+        else finish();
       };
       requestAnimationFrame(animate);
     };
@@ -178,6 +211,15 @@
     } else {
       startCounter();
     }
+  }
+
+  function watchForClientDuplicates() {
+    const heroMeta = document.querySelector('.hero-meta');
+    if (!heroMeta || heroMeta.dataset.clientWatcher === 'true') return;
+    heroMeta.dataset.clientWatcher = 'true';
+
+    const observer = new MutationObserver(() => keepSingleAnimatedClientMetric());
+    observer.observe(heroMeta, { childList: true, subtree: false });
   }
 
   function addPsychologyCertificate() {
