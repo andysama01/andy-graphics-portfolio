@@ -1,0 +1,137 @@
+{
+  "files": [
+    "sprite-01.js",
+    "sprite-02.js",
+    "sprite-03.js",
+    "sprite-04.js",
+    "sprite-05-06.js",
+    "sprite-07-08.js"
+  ],
+  "fragmentCount": 7,
+  "fragments": [
+    {
+      "file": "sprite-01.js",
+      "index": 0,
+      "chars": 7801,
+      "mod4": 1,
+      "equals": 0,
+      "start": "UklGRt6AAQBXRUJQVlA4WAoA",
+      "end": "upEwQ+WkEYVmbR/t9db3E/k5",
+      "decodedBytes": 5850,
+      "decodedMagicHex": "52494646de8001005745425056503858",
+      "decodedMagicAscii": "RIFF^...WEBPVP8X",
+      "riffDeclaredBytes": 98534,
+      "webpMagic": true
+    },
+    {
+      "file": "sprite-02.js",
+      "index": 0,
+      "chars": 6628,
+      "mod4": 0,
+      "equals": 0,
+      "start": "ACU2Xzb9Fd6npEBd5HQoPHtM",
+      "end": "6sdu0THPJSVY4xAbwoG5C8Yg",
+      "decodedBytes": 4971,
+      "decodedMagicHex": "0025365f36fd15dea7a4405de474283c",
+      "decodedMagicAscii": ".%6_6}.^'$@]dt(<",
+      "riffDeclaredBytes": null,
+      "webpMagic": false
+    },
+    {
+      "file": "sprite-03.js",
+      "index": 0,
+      "chars": 7800,
+      "mod4": 0,
+      "equals": 0,
+      "start": "N4UDcheMQG8KBuQvGE/4JgVS",
+      "end": "gVNzRkhL10UAqtxlO8lkRrZE",
+      "decodedBytes": 5850,
+      "decodedMagicHex": "37850372178c406f0a06e42f184ff826",
+      "decodedMagicAscii": "7..r..@o..d/.Ox&",
+      "riffDeclaredBytes": null,
+      "webpMagic": false
+    },
+    {
+      "file": "sprite-04.js",
+      "index": 0,
+      "chars": 7800,
+      "mod4": 0,
+      "equals": 0,
+      "start": "tblltdCFxWtEM/YrA5xRo0kO",
+      "end": "/6nE1+BBH8As5WNeOxfdJMT3",
+      "decodedBytes": 5850,
+      "decodedMagicHex": "b5b965b5d085c56b4433f62b039c51a3",
+      "decodedMagicAscii": "59e5P.EkD3v+..Q#",
+      "riffDeclaredBytes": null,
+      "webpMagic": false
+    },
+    {
+      "file": "sprite-05-06.js",
+      "index": 0,
+      "chars": 7800,
+      "mod4": 0,
+      "equals": 0,
+      "start": "dOYvRqN+WuHYMs7UOaL4iKTi",
+      "end": "3u2EV09MY+89vAwx1JpwigNS",
+      "decodedBytes": 5850,
+      "decodedMagicHex": "74e62f46a37e5ae1d832ced439a2f888",
+      "decodedMagicAscii": "tf/F#~ZaX2NT9\"x.",
+      "riffDeclaredBytes": null,
+      "webpMagic": false
+    },
+    {
+      "file": "sprite-05-06.js",
+      "index": 1,
+      "chars": 7800,
+      "mod4": 0,
+      "equals": 0,
+      "start": "0PyxE4clrkk8IMf1zU1/KhxA",
+      "end": "B3c4RwudFUtUOopC/PURwdoo",
+      "decodedBytes": 5850,
+      "decodedMagicHex": "d0fcb1138725ae493c20c7f5cd4d7f2a",
+      "decodedMagicAscii": "P|1..%.I< GuMM.*",
+      "riffDeclaredBytes": null,
+      "webpMagic": false
+    },
+    {
+      "file": "sprite-07-08.js",
+      "index": 0,
+      "chars": 15600,
+      "mod4": 0,
+      "equals": 0,
+      "start": "LyHjDeihrCDYSd5+wGw2fT73",
+      "end": "BFUgoMdcJeApUWE2uTFAvGg0",
+      "decodedBytes": 11700,
+      "decodedMagicHex": "2f21e30de8a1ac20d849de7ec06c367d",
+      "decodedMagicAscii": "/!c.h!, XI^~@l6}",
+      "riffDeclaredBytes": null,
+      "webpMagic": false
+    }
+  ],
+  "candidates": {
+    "decodeJoinedText": {
+      "bytes": 45921,
+      "magicHex": "52494646de80010057454250565038580a00000010000000",
+      "magicAscii": "RIFF^...WEBPVP8X........",
+      "riffPositions": [
+        {
+          "offset": 0,
+          "declaredBytes": 98534,
+          "complete": false
+        }
+      ]
+    },
+    "concatDecodedPieces": {
+      "bytes": 45921,
+      "magicHex": "52494646de80010057454250565038580a00000010000000",
+      "magicAscii": "RIFF^...WEBPVP8X........",
+      "riffPositions": [
+        {
+          "offset": 0,
+          "declaredBytes": 98534,
+          "complete": false
+        }
+      ]
+    }
+  }
+}
