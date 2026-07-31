@@ -1,109 +1,180 @@
 (() => {
-  const legacy = document.createElement('script');
-  legacy.src = 'https://cdn.jsdelivr.net/gh/Andy-graphics/andy-graphics-portfolio@dd8f7094efda22d076a95cdec0e7a9895307e197/script.js';
-  legacy.async = false;
-  legacy.onload = () => setTimeout(addUploadedFlyers, 0);
-  legacy.onerror = () => {
-    console.warn('Base portfolio script could not be loaded. Showing uploaded flyer designs only.');
-    addUploadedFlyers();
-  };
-  document.head.appendChild(legacy);
+  const base = document.createElement('script');
+  base.src = 'https://cdn.jsdelivr.net/gh/Andy-graphics/andy-graphics-portfolio@5a669c5337858f927014f3ea6159719b2b981d02/script.js';
+  base.async = false;
+  base.onload = () => setTimeout(addLatestUploads, 0);
+  base.onerror = () => addLatestUploads();
+  document.head.appendChild(base);
 
-  const uploadedFlyers = [
-    'Screenshot 2026-07-31 084723.png',
-    'Screenshot 2026-07-31 084750.png',
-    'Screenshot 2026-07-31 084755.png',
-    'Screenshot 2026-07-31 084800.png',
-    'Screenshot 2026-07-31 084805.png',
-    'Screenshot 2026-07-31 084810.png',
-    'Screenshot 2026-07-31 084815.png',
-    'Screenshot 2026-07-31 084821.png',
-    'Screenshot 2026-07-31 084916.png',
-    'Screenshot 2026-07-31 085001.png',
-    'Screenshot 2026-07-31 085043.png',
-    'Screenshot 2026-07-31 085108.png',
-    'Screenshot 2026-07-31 085113.png',
-    'Screenshot 2026-07-31 085134.png',
-    'Screenshot 2026-07-31 085139.png',
-    'Screenshot 2026-07-31 085146.png',
-    'Screenshot 2026-07-31 085216.png',
-    'Screenshot 2026-07-31 085233.png',
-    'Screenshot 2026-07-31 085254.png',
-    'Screenshot 2026-07-31 085258.png',
-    'Screenshot 2026-07-31 085305.png',
-    'Screenshot 2026-07-31 085326.png',
-    'Screenshot 2026-07-31 085344.png',
-    'Screenshot 2026-07-31 085419.png',
-    'Screenshot 2026-07-31 085442.png',
-    'Screenshot 2026-07-31 085446.png',
-    'Screenshot 2026-07-31 085509.png',
-    'Screenshot 2026-07-31 085527.png',
-    'Screenshot 2026-07-31 085552.png',
-    'Screenshot 2026-07-31 085606.png',
-    'Screenshot 2026-07-31 085633.png',
-    'Screenshot 2026-07-31 085646.png',
-    'Screenshot 2026-07-31 090315.png',
-    'Screenshot 2026-07-31 090928.png',
-    'Screenshot 2026-07-31 090937.png',
-    'Screenshot 2026-07-31 091013.png'
+  const latestFlyers = [
+    'Screenshot 2026-07-31 095349.png',
+    'Screenshot 2026-07-31 095442.png'
   ];
 
-  function safe(value) {
-    return String(value)
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;');
+  const latestLogos = [
+    'AJ_Tradehouse logo 1.png',
+    'AMSONTECH Solutions logo 1.png',
+    'Assetstocker logo v1.png',
+    'Aura timbers logo v 1.png',
+    'AuraTrustBank logo 1.png',
+    'Binestockexchange logoo.png',
+    'BondsCapitalTrade logo 2.png',
+    'Cardtrxchange logo 1.png',
+    'Centenialcapital logo 1.png',
+    'Crown Haven logo 1.png',
+    'Farmaballistics logo v 1.png',
+    'GLSEG logo 1.png',
+    'Global Strategic logistics logo 1.png',
+    'Growassetinvex logo 1.png',
+    'Hashvestcapital logo 1.png',
+    'Intel Trade Capital logo 1.png',
+    "Jhay's Luxe logo gold version.png",
+    'Litecapitalprime logo 1.png',
+    'North Reserve Bank logo.png',
+    'Raygreenbank logo 1.png',
+    'RevalFinance logo 1.png',
+    'Richie Forex academy blk.png',
+    'Sterlingforts logo 1.png',
+    'StratifyOptions logo 1.png',
+    'The Giving Arm logo 1.png',
+    'The republic Fx logo 1.png',
+    'Tradecapital logo 01.png',
+    'TransferGeld logo -1 (BLK TXT).png',
+    'Ultimabusinesspro logo 1.png',
+    'Web3AssetHub logo 1.png',
+    'Web3DigitalConnect logo icon blk v.png',
+    'Wemovexpress logo 1.png',
+    'Zoil and Gas logo v3.png'
+  ];
+
+  function esc(value) {
+    return String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
   }
 
-  function addUploadedFlyers() {
+  function path(folder, filename) {
+    return `${folder}/${encodeURIComponent(filename)}`;
+  }
+
+  function cleanName(filename) {
+    return filename
+      .replace(/\.[^.]+$/, '')
+      .replace(/logoo?/ig, '')
+      .replace(/logo/ig, '')
+      .replace(/blk txt/ig, '')
+      .replace(/gold version/ig, '')
+      .replace(/\b(v|version)\s*\d*\b/ig, '')
+      .replace(/\b\d+\b/g, '')
+      .replace(/[-_]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function addLatestUploads() {
+    addStyles();
+    addFlyers();
+    addLogos();
+    wireCards();
+    wireFilters();
+    updateLogoCount();
+  }
+
+  function addStyles() {
+    if (document.getElementById('latest-upload-style')) return;
+    const style = document.createElement('style');
+    style.id = 'latest-upload-style';
+    style.textContent = `
+      .uploaded-flyer{background:#f4f1eb;min-height:540px;box-shadow:0 18px 42px rgba(0,0,0,.22)}
+      .uploaded-flyer img{width:100%;height:100%;object-fit:contain;background:#f4f1eb;padding:10px;filter:none!important}
+      .uploaded-flyer:hover img,.uploaded-flyer:focus img{transform:scale(1.01);filter:none!important}
+      .uploaded-flyer .project-info{background:linear-gradient(135deg,rgba(185,0,0,.96),rgba(10,10,10,.96));border-radius:16px;padding:14px;left:14px;right:14px;bottom:14px}
+      .uploaded-flyer .project-info p{color:#ffd8d8}.uploaded-flyer .project-info h3{color:#fff}
+      .uploaded-logo .logo-media{min-height:230px;padding:28px;display:flex;align-items:center;justify-content:center;background:#fff}
+      .uploaded-logo .logo-media.tone-dark{background:#080808}
+      .uploaded-logo .logo-media img{max-width:100%;max-height:190px;object-fit:contain;filter:none!important}
+      .uploaded-logo .logo-caption{background:linear-gradient(135deg,rgba(185,0,0,.94),rgba(13,13,13,.96));color:#fff}
+      .uploaded-logo .logo-caption p{color:#ffd8d8}.uploaded-logo .logo-caption h3,.uploaded-logo .logo-caption span{color:#fff}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function addFlyers() {
     const grid = document.querySelector('.portfolio-grid');
-    if (!grid || grid.dataset.uploadedFlyersAdded === 'true') return;
-    grid.dataset.uploadedFlyersAdded = 'true';
-
-    const cards = uploadedFlyers.map((filename, index) => {
-      const number = String(index + 1).padStart(2, '0');
-      const title = `Flyer Design ${number}`;
-      const type = 'Portfolio Campaign Design';
-      const src = `assets/work/${encodeURIComponent(filename)}`;
-      return `<article class="project reveal visible uploaded-flyer" data-category="campaign" tabindex="0" data-image="${src}" data-title="${safe(title)}" data-type="${safe(type)}" data-tone="light">
-        <img src="${src}" alt="${safe(title)} by Andy Graphics" loading="lazy">
-        <div class="project-info"><div><p>${safe(type)}</p><h3>${safe(title)}</h3></div><span>View</span></div>
-      </article>`;
+    if (!grid || grid.dataset.latestFlyersAdded === 'true') return;
+    grid.dataset.latestFlyersAdded = 'true';
+    const current = document.querySelectorAll('.portfolio-grid .project').length;
+    const html = latestFlyers.map((file, index) => {
+      const title = `Flyer Design ${String(current + index + 1).padStart(2, '0')}`;
+      const src = path('assets/work', file);
+      return `<article class="project uploaded-flyer reveal visible" data-category="campaign" tabindex="0" data-image="${src}" data-title="${esc(title)}" data-type="Portfolio Campaign Design" data-tone="light"><img src="${src}" alt="${esc(title)} by Andy Graphics" loading="lazy"><div class="project-info"><div><p>Portfolio Campaign Design</p><h3>${esc(title)}</h3></div><span>View</span></div></article>`;
     }).join('');
-
-    grid.insertAdjacentHTML('afterbegin', cards);
-    wireUploadedFlyerPreview();
+    grid.insertAdjacentHTML('afterbegin', html);
   }
 
-  function wireUploadedFlyerPreview() {
-    const lightbox = document.querySelector('.lightbox');
-    const lightboxMedia = lightbox?.querySelector('.lightbox-media');
-    const lightboxImage = lightbox?.querySelector('img');
-    const lightboxTitle = lightbox?.querySelector('h3');
-    const lightboxType = lightbox?.querySelector('p');
-    const openLightbox = project => {
-      if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxType || !lightboxMedia) return;
-      lightboxImage.src = project.dataset.image;
-      lightboxImage.alt = project.dataset.title;
-      lightboxTitle.textContent = project.dataset.title;
-      lightboxType.textContent = project.dataset.type;
-      lightboxMedia.className = `lightbox-media tone-${project.dataset.tone || 'dark'}`;
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    };
+  function addLogos() {
+    const grid = document.getElementById('logo-grid');
+    if (!grid || grid.dataset.latestLogosAdded === 'true') return;
+    grid.dataset.latestLogosAdded = 'true';
+    const html = latestLogos.map(file => {
+      const name = cleanName(file);
+      const tone = /gold|GLSEG|Global Strategic/i.test(file) ? 'dark' : 'light';
+      const src = path('assets/logos', file);
+      return `<article class="logo-project uploaded-logo reveal visible" tabindex="0" data-logo-category="technology" data-image="${src}" data-title="${esc(name)}" data-type="Logo Design" data-tone="${tone}"><div class="logo-media tone-${tone}"><img src="${src}" alt="${esc(name)} logo design by Andy Graphics" loading="lazy"></div><div class="logo-caption"><div><p>Logo Design</p><h3>${esc(name)}</h3></div><span>View</span></div></article>`;
+    }).join('');
+    grid.insertAdjacentHTML('afterbegin', html);
+  }
 
-    document.querySelectorAll('.uploaded-flyer').forEach(project => {
-      if (project.dataset.previewWired === 'true') return;
-      project.dataset.previewWired = 'true';
-      project.addEventListener('click', () => openLightbox(project));
-      project.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openLightbox(project);
-        }
+  function wireCards() {
+    const lightbox = document.querySelector('.lightbox');
+    const media = lightbox?.querySelector('.lightbox-media');
+    const img = lightbox?.querySelector('img');
+    const title = lightbox?.querySelector('h3');
+    const type = lightbox?.querySelector('p');
+    document.querySelectorAll('.uploaded-flyer,.uploaded-logo').forEach(card => {
+      if (card.dataset.previewWired === 'true') return;
+      card.dataset.previewWired = 'true';
+      const open = () => {
+        if (!lightbox || !media || !img || !title || !type) return;
+        img.src = card.dataset.image;
+        img.alt = card.dataset.title;
+        title.textContent = card.dataset.title;
+        type.textContent = card.dataset.type;
+        media.className = `lightbox-media tone-${card.dataset.tone || 'light'}`;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      };
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    });
+  }
+
+  function wireFilters() {
+    document.querySelectorAll('.work .filter').forEach(button => {
+      if (button.dataset.liveFilterWired === 'true') return;
+      button.dataset.liveFilterWired = 'true';
+      button.addEventListener('click', () => {
+        const value = button.dataset.filter;
+        document.querySelectorAll('.portfolio-grid .project').forEach(card => {
+          const categories = (card.dataset.category || '').split(' ');
+          card.classList.toggle('hidden', value !== 'all' && !categories.includes(value));
+        });
       });
     });
+    document.querySelectorAll('.logo-filter').forEach(button => {
+      if (button.dataset.liveFilterWired === 'true') return;
+      button.dataset.liveFilterWired = 'true';
+      button.addEventListener('click', () => {
+        const value = button.dataset.logoFilter;
+        document.querySelectorAll('#logo-grid .logo-project').forEach(card => {
+          card.classList.toggle('hidden', value !== 'all' && card.dataset.logoCategory !== value);
+        });
+      });
+    });
+  }
+
+  function updateLogoCount() {
+    const count = document.querySelector('.logo-count strong');
+    const total = document.querySelectorAll('#logo-grid .logo-project').length;
+    if (count && total) count.textContent = `${total}+`;
   }
 })();
