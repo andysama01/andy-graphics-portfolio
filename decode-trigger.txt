@@ -2,3 +2,4 @@ Decode the existing portfolio sprite fragments and commit the resulting image as
 Retry with all fragments in the combined sprite files.
 Recover each WebP image from the reconstructed binary stream.
 Run fragment diagnostics.
+Extract the embedded gallery asset packs.
