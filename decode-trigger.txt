@@ -1,0 +1,1 @@
+Decode the existing portfolio sprite fragments and commit the resulting image assets.
