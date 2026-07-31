@@ -1,0 +1,46 @@
+{
+  "candidates": [
+    "assetpack-01.js",
+    "embedded-01.js"
+  ],
+  "diagnostics": [
+    {
+      "file": "assetpack-01.js",
+      "ok": true,
+      "keyCount": 1,
+      "keys": [
+        {
+          "key": "assets/flyers/chuksco-steel-co-april-new-month-flyer.svg",
+          "chars": 20202,
+          "start": "data:image/webp;base64,UklGRkgfAABXRUJQV"
+        }
+      ]
+    },
+    {
+      "file": "embedded-01.js",
+      "ok": true,
+      "keyCount": 1,
+      "keys": [
+        {
+          "key": "assets/flyers/chuksco-steel-co-april-new-month-flyer.svg",
+          "chars": 15103,
+          "start": "data:image/webp;base64,UklGRiYsAABXRUJQV"
+        }
+      ]
+    }
+  ],
+  "assetCount": 1,
+  "manifest": [
+    {
+      "key": "assets/flyers/chuksco-steel-co-april-new-month-flyer.svg",
+      "filename": "chuksco-steel-co-april-new-month-flyer.webp",
+      "mime": "image/webp",
+      "bytes": 11310,
+      "ok": true,
+      "valid": true,
+      "width": 340,
+      "height": 425
+    }
+  ],
+  "validCount": 1
+}
