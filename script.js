@@ -1,1 +1,217 @@
-const latestLogoSheet='data:image/webp;base64,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';const latestFlyerSheet='data:image/webp;base64,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';const e=document.createElement('style');e.textContent='.category-gateway{background:#0d0d0d}.category-gateway .section-heading h2{color:#f4f1eb}.category-gateway-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:42px}.category-cta{display:flex;flex-direction:column;gap:14px;padding:28px;border:1px solid rgba(255,255,255,.16);border-radius:24px;background:linear-gradient(145deg,#151515,#0b0b0b);transition:.25s}.category-cta:hover{transform:translateY(-4px);border-color:#fff}.category-cta span{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#aaa}.category-cta strong{font-size:24px;color:#fff}.latest-collection .project-info,.latest-collection .logo-caption{background:linear-gradient(135deg,rgba(212,0,0,.95),rgba(20,20,20,.96));color:#fff}.latest-collection .project-info p,.latest-collection .logo-caption p{color:#f2c7c7}.latest-collection .logo-caption h3,.latest-collection .logo-caption>span{color:#fff}@media(max-width:700px){.category-gateway-actions{grid-template-columns:1fr}}';document.head.appendChild(e);const logoProjects=[{slug:'latest-logo-collection',src:latestLogoSheet,name:'Latest Logo Collection',industry:'Latest uploaded logo designs',group:'corporate',tone:'light',latest:true},{slug:'andy-graphics',src:'assets/logos/andy-graphics.webp',name:'Andy Graphics',industry:'Creative Services',group:'corporate',tone:'light'},{slug:'animedmerch',src:'assets/logos/animedmerch.webp',name:'AnimedMerch',industry:'Retail & Entertainment',group:'entertainment',tone:'light'},{slug:'chuksco-designs-construction',src:'assets/logos/chuksco-designs-construction.webp',name:'Chuksco Designs & Construction',industry:'Construction',group:'corporate',tone:'light'},{slug:'chyte',src:'assets/logos/chyte.webp',name:'Chyte',industry:'Consumer Brand',group:'corporate',tone:'light'},{slug:'tulipslogics',src:'assets/logos/tulipslogics.webp',name:'Tulipslogics',industry:'Logistics',group:'corporate',tone:'dark'},{slug:'xspacetrader',src:'assets/logos/xspacetrader.webp',name:'XSpaceTrader',industry:'Trading Platform',group:'technology',tone:'light'},{slug:'debbie-hairven',src:'assets/logos/debbie-hairven.webp',name:'Debbie Hairven',industry:'Hair & Beauty',group:'fashion',tone:'light'},{slug:'eazy-hire',src:'assets/logos/eazy-hire.webp',name:'Eazy Hire',industry:'Recruitment Marketplace',group:'technology',tone:'light'},{slug:'elite-buka-xperience',src:'assets/logos/elite-buka-xperience.webp',name:'Elite Buka Xperience',industry:'Food & Hospitality',group:'food',tone:'light'},{slug:'emmaus-scent',src:'assets/logos/emmaus-scent.webp',name:'Emmaus Scent',industry:'Fragrance',group:'fashion',tone:'light'},{slug:'fit-ins',src:'assets/logos/fit-ins.webp',name:'Fit-ins',industry:'Fashion & Apparel',group:'fashion',tone:'light'},{slug:'gt-electrical',src:'assets/logos/gt-electrical.webp',name:'G&T Electrical',industry:'Electrical Services',group:'corporate',tone:'light'},{slug:'gastrify',src:'assets/logos/gastrify.webp',name:'Gastrify',industry:'Food Technology',group:'food',tone:'brand'},{slug:'gem-unisex',src:'assets/logos/gem-unisex.webp',name:'Gem Unisex',industry:'Fashion & Beauty',group:'fashion',tone:'light'},{slug:'gerron-the-realtor',src:'assets/logos/gerron-the-realtor.webp',name:'Gerron the Realtor',industry:'Real Estate',group:'corporate',tone:'dark'},{slug:'golden-feathers',src:'assets/logos/golden-feathers.webp',name:'Golden Feathers',industry:'Premium Lifestyle',group:'fashion',tone:'dark'},{slug:'goldenminter',src:'assets/logos/goldenminter.webp',name:'Goldenminter',industry:'Finance & Investment',group:'technology',tone:'dark'},{slug:'happy-homes-realty',src:'assets/logos/happy-homes-realty.webp',name:'Happy Homes Realty',industry:'Real Estate',group:'corporate',tone:'dark'},{slug:'her-bloom',src:'assets/logos/her-bloom.webp',name:'Her Bloom',industry:'Women’s Wellness',group:'fashion',tone:'light'},{slug:'hitek-gadgets-hub',src:'assets/logos/hitek-gadgets-hub.webp',name:'Hitek Gadgets Hub',industry:'Consumer Technology',group:'technology',tone:'dark'},{slug:'icon-express-laundry',src:'assets/logos/icon-express-laundry.webp',name:'Icon Express Laundry',industry:'Laundry Services',group:'corporate',tone:'brand'},{slug:'james-benson',src:'assets/logos/james-benson.webp',name:'James Benson',industry:'Personal Brand',group:'corporate',tone:'dark'},{slug:'jewel-house-by-soma',src:'assets/logos/jewel-house-by-soma.webp',name:'Jewel House by Soma',industry:'Jewellery',group:'fashion',tone:'dark'},{slug:'joy-hope-foundation',src:'assets/logos/joy-hope-foundation.webp',name:'Joy & Hope Foundation',industry:'Nonprofit',group:'corporate',tone:'light'},{slug:'just-ask-gadget-store',src:'assets/logos/just-ask-gadget-store.webp',name:'Just Ask Gadget Store',industry:'Gadget Retail',group:'technology',tone:'light'},{slug:'kicks-beyond',src:'assets/logos/kicks-beyond.webp',name:'Kicks & Beyond',industry:'Footwear',group:'fashion',tone:'dark'},{slug:'le-reve-salon-spa',src:'assets/logos/le-reve-salon-spa.webp',name:'Le Rêve Salon & Spa',industry:'Beauty & Wellness',group:'fashion',tone:'light'},{slug:'campus-mirror',src:'assets/logos/campus-mirror.webp',name:'Campus Mirror',industry:'Campus Media',group:'entertainment',tone:'light'},{slug:'degods',src:'assets/logos/degods.webp',name:'DeGods',industry:'Entertainment',group:'entertainment',tone:'dark'},{slug:'guu-super-6',src:'assets/logos/guu-super-6.webp',name:'GUU Super 6',industry:'Sports Event',group:'entertainment',tone:'light'},{slug:'tashias-essence',src:'assets/logos/tashias-essence.webp',name:'Tashia’s Essence',industry:'Fragrance',group:'fashion',tone:'dark'},{slug:'miras-culinary',src:'assets/logos/miras-culinary.webp',name:'Mira’s Culinary',industry:'Food & Catering',group:'food',tone:'cream'},{slug:'miravid',src:'assets/logos/miravid.webp',name:'Miravid',industry:'Fashion Academy',group:'fashion',tone:'dark'},{slug:'og-foods',src:'assets/logos/og-foods.webp',name:'OG Foods',industry:'Food & Catering',group:'food',tone:'light'},{slug:'jo-threads',src:'assets/logos/jo-threads.webp',name:'JO Threads',industry:'Fashion & Tailoring',group:'fashion',tone:'dark'},{slug:'peace-bella',src:'assets/logos/peace-bella.webp',name:'Peace Bella',industry:'Fashion & Beauty',group:'fashion',tone:'light'},{slug:'pick-fit',src:'assets/logos/pick-fit.webp',name:'Pick & Fit',industry:'Fashion Retail',group:'fashion',tone:'light'},{slug:'playstation-arena',src:'assets/logos/playstation-arena.webp',name:'PlayStation Arena',industry:'Gaming & Entertainment',group:'entertainment',tone:'light'},{slug:'pondaa',src:'assets/logos/pondaa.webp',name:'Pondaa',industry:'Digital Brand',group:'technology',tone:'light'},{slug:'primewave-villa',src:'assets/logos/primewave-villa.webp',name:'PrimeWave Villa',industry:'Hospitality & Property',group:'corporate',tone:'light'},{slug:'abc-info-med',src:'assets/logos/abc-info-med.webp',name:'ABC Info Med',industry:'Health Technology',group:'technology',tone:'light'},{slug:'allgovpay',src:'assets/logos/allgovpay.webp',name:'AllgovPay',industry:'Fintech',group:'technology',tone:'light'},{slug:'empower-synergy',src:'assets/logos/empower-synergy.webp',name:'Empower Synergy',industry:'Renewable Energy',group:'corporate',tone:'dark'},{slug:'pyro-gadgets',src:'assets/logos/pyro-gadgets.webp',name:'Pyro Gadgets',industry:'Consumer Technology',group:'technology',tone:'light'},{slug:'raymas-foods',src:'assets/logos/raymas-foods.webp',name:'Rayma’s Foods',industry:'Food & Beverage',group:'food',tone:'light'},{slug:'reeftech-gadget-hub',src:'assets/logos/reeftech-gadget-hub.webp',name:'ReefTech Gadget Hub',industry:'Consumer Technology',group:'technology',tone:'brand'},{slug:'rene-gadgets',src:'assets/logos/rene-gadgets.webp',name:'Rene Gadgets',industry:'Consumer Technology',group:'technology',tone:'light'},{slug:'rogims',src:'assets/logos/rogims.webp',name:'Rogims',industry:'Restaurant & Catering',group:'food',tone:'light'},{slug:'roots-rhythm',src:'assets/logos/roots-rhythm.webp',name:'Roots & Rhythm',industry:'Music',group:'entertainment',tone:'light'},{slug:'safe',src:'assets/logos/safe.webp',name:'SAFE',industry:'Security & Technology',group:'technology',tone:'light'},{slug:'saenae',src:'assets/logos/saenae.webp',name:'Saenae',industry:'Fashion',group:'fashion',tone:'cream'},{slug:'saiza-landlords',src:'assets/logos/saiza-landlords.webp',name:'Saiza Landlords',industry:'Real Estate',group:'corporate',tone:'light'},{slug:'secrets-record-label',src:'assets/logos/secrets-record-label.webp',name:'Secrets Record Label',industry:'Music & Entertainment',group:'entertainment',tone:'light'},{slug:'tellerhost',src:'assets/logos/tellerhost.webp',name:'TellerHost',industry:'Web Hosting',group:'technology',tone:'brand'},{slug:'hivereserve',src:'assets/logos/hivereserve.webp',name:'HiveReserve Inc.',industry:'Digital Business',group:'technology',tone:'dark'},{slug:'equity-capital-trade',src:'assets/logos/equity-capital-trade.webp',name:'Equity Capital Trade',industry:'Finance & Trading',group:'technology',tone:'light'},{slug:'natural-red-oils',src:'assets/logos/natural-red-oils.webp',name:'Natural Red Oils',industry:'Beauty & Wellness',group:'fashion',tone:'light'}];const menuButton=document.querySelector('.menu-toggle');const nav=document.querySelector('.main-nav');menuButton?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');}));const year=document.getElementById('year');if(year)year.textContent=new Date().getFullYear();const logoCount=document.querySelector('.logo-count strong');if(logoCount)logoCount.textContent='77+';const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');const logoGrid=document.getElementById('logo-grid');if(logoGrid){logoGrid.innerHTML=logoProjects.map(project=>`<article class='logo-project reveal ${project.latest?'latest-collection':''}' tabindex='0' data-logo-category='${project.group}' data-image='${project.src}' data-title='${esc(project.name)}' data-type='${esc(project.industry)} — Logo Design' data-tone='${project.tone}'><div class='logo-media tone-${project.tone}'><img src='${project.src}' alt='${esc(project.name)} logo design' loading='lazy'></div><div class='logo-caption'><div><p>${esc(project.industry)}</p><h3>${esc(project.name)}</h3></div><span>View</span></div></article>`).join('');}const portfolioGrid=document.querySelector('.portfolio-grid');if(portfolioGrid){portfolioGrid.insertAdjacentHTML('afterbegin',`<article class='project reveal latest-collection' data-category='technology corporate campaign lifestyle' tabindex='0' data-image='${latestFlyerSheet}' data-title='Latest Flyer Collection' data-type='Latest uploaded flyer designs' data-tone='light'><img src='${latestFlyerSheet}' alt='Latest uploaded flyer designs: Hitek, Xcrypt, ZiroStack, Chuksco, Chyte, Koynfi, TellerHost and more' loading='lazy'><div class='project-info'><div><p>Latest uploads</p><h3>Latest Flyer Collection</h3></div><span>View</span></div></article>`);}const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.08,rootMargin:'0px 0px 100px'});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));const portfolioFilters=document.querySelectorAll('.work .filter');const portfolioProjects=document.querySelectorAll('.portfolio-grid .project');portfolioFilters.forEach(button=>button.addEventListener('click',()=>{portfolioFilters.forEach(b=>b.classList.remove('active'));button.classList.add('active');const value=button.dataset.filter;portfolioProjects.forEach(project=>{const match=value==='all'||project.dataset.category.split(' ').includes(value);project.classList.toggle('hidden',!match);});}));const logoFilters=document.querySelectorAll('.logo-filter');const logoCards=document.querySelectorAll('.logo-project');logoFilters.forEach(button=>button.addEventListener('click',()=>{logoFilters.forEach(b=>b.classList.remove('active'));button.classList.add('active');const value=button.dataset.logoFilter;logoCards.forEach(card=>card.classList.toggle('hidden',value!=='all'&&card.dataset.logoCategory!==value));}));const lightbox=document.querySelector('.lightbox');const lightboxMedia=lightbox?.querySelector('.lightbox-media');const lightboxImage=lightbox?.querySelector('img');const lightboxTitle=lightbox?.querySelector('h3');const lightboxType=lightbox?.querySelector('p');const closeLightbox=()=>{if(!lightbox)return;lightbox.classList.remove('open');lightbox.setAttribute('aria-hidden','true');document.body.style.overflow='';};const openLightbox=project=>{if(!lightbox||!lightboxImage||!lightboxTitle||!lightboxType||!lightboxMedia)return;lightboxImage.src=project.dataset.image;lightboxImage.alt=project.dataset.title;lightboxTitle.textContent=project.dataset.title;lightboxType.textContent=project.dataset.type;lightboxMedia.className=`lightbox-media tone-${project.dataset.tone||'dark'}`;lightbox.classList.add('open');lightbox.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};document.querySelectorAll('.project,.logo-project').forEach(project=>{project.addEventListener('click',()=>openLightbox(project));project.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();openLightbox(project);}});});lightbox?.querySelector('.lightbox-close')?.addEventListener('click',closeLightbox);lightbox?.addEventListener('click',ev=>{if(ev.target===lightbox)closeLightbox();});document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closeLightbox();});document.addEventListener('mousemove',ev=>{const glow=document.querySelector('.cursor-glow');if(glow){glow.style.left=ev.clientX+'px';glow.style.top=ev.clientY+'px';}});
+(() => {
+  const legacy = document.createElement('script');
+  legacy.src = 'https://cdn.jsdelivr.net/gh/andysama01/andy-graphics-portfolio@b22229f95064eb447b3048d814e6cad05c74ebad/script.js';
+  legacy.async = false;
+  legacy.onload = () => splitLatestPortfolioSheets();
+  legacy.onerror = () => {
+    console.error('Could not load portfolio gallery script.');
+  };
+  document.head.appendChild(legacy);
+
+  function splitLatestPortfolioSheets() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .latest-individual .sheet-crop{display:block;width:100%;background-repeat:no-repeat;background-color:#fff;}
+      .logo-project.latest-individual .logo-media{padding:16px;display:flex;align-items:center;justify-content:center;background:#fff;}
+      .logo-project.latest-individual .logo-media.tone-dark{background:#080808;}
+      .logo-project.latest-individual .logo-crop{height:220px;border-radius:18px;background-color:transparent;}
+      .project.latest-individual{background:#fff;}
+      .project.latest-individual .project-crop{height:clamp(390px,74vw,650px);background-size:cover;border-radius:inherit;}
+      .project.latest-individual .project-info,.logo-project.latest-individual .logo-caption{background:linear-gradient(135deg,rgba(185,0,0,.95),rgba(18,18,18,.96));color:#fff;}
+      .project.latest-individual .project-info p,.logo-project.latest-individual .logo-caption p{color:#ffd7d7;}
+      .project.latest-individual .project-info h3,.logo-project.latest-individual .logo-caption h3,.logo-project.latest-individual .logo-caption span{color:#fff;}
+      .lightbox-media.tone-light,.lightbox-media.tone-cream{background:#fff;}
+      .lightbox-media.tone-dark{background:#080808;}
+      .lightbox-media img{object-fit:contain;}
+      @media(max-width:700px){.logo-project.latest-individual .logo-crop{height:190px}.project.latest-individual .project-crop{height:520px;}}
+    `;
+    document.head.appendChild(style);
+
+    const logoItems = [
+      ['Xcrypt Academy','Forex & Crypto Education','technology','light'],
+      ['Zirostack','Technology Brand','technology','light'],
+      ['AMSONTECH Solutions','Technology Solutions','technology','light'],
+      ['MetaCandleCapital','Finance & Trading','technology','light'],
+      ['TradeHubFX','Forex Trading','technology','light'],
+      ['AuraTrustBank','Fintech & Banking','technology','light'],
+      ['Farmaballistics','Health & Pharmaceutical','corporate','light'],
+      ['Cardtrxchange','Digital Exchange','technology','light'],
+      ['Global Strategic Logistics','Logistics','corporate','dark'],
+      ['GLSEG','Logistics','corporate','dark'],
+      ['Intel Trade Capital','Finance & Trading','technology','light'],
+      ['LiteCapitalPrime','Finance & Trading','technology','light'],
+      ['RichieForex Trading Academy','Forex Academy','technology','light'],
+      ['Sterlingforts','Corporate Services','corporate','light'],
+      ['The Giving Arm','Nonprofit','corporate','light'],
+      ['Tradecapital','Finance & Trading','technology','light'],
+      ['TransferGeld','Money Transfer','technology','light'],
+      ['UltimaBusinessPro','Business Services','corporate','light'],
+      ['Web3AssetHub','Web3 Finance','technology','light'],
+      ['Web3DigitalConnect','Web3 Technology','technology','light']
+    ];
+
+    const flyerItems = [
+      ['Xcrypt FUTO Forex & Crypto Mentorship','Forex & Crypto Campaign','technology campaign'],
+      ['Xcrypt Online Forex Mentorship','Forex Mentorship Campaign','technology campaign'],
+      ['Her Bloom Women’s Day','Women’s Day Campaign','lifestyle campaign'],
+      ['James Benson Women’s Day','Fashion Campaign','lifestyle campaign'],
+      ['Sekani International Women’s Day','Lifestyle Campaign','lifestyle campaign'],
+      ['Zirostack Women’s Day','Technology Campaign','technology campaign'],
+      ['Zirostack Services','Technology Services Campaign','technology campaign'],
+      ['Zirostack Graphic Design','Creative Services Campaign','technology campaign'],
+      ['Zirostack Web Content','Technology Services Campaign','technology campaign'],
+      ['Chuksco Steel April New Month','Corporate Campaign','corporate campaign'],
+      ['Chyte April Delivery Campaign','Delivery Services Campaign','lifestyle campaign'],
+      ['Koynfi April Transactions','Finance Campaign','technology campaign'],
+      ['TellerHost March New Month','Web Hosting Campaign','technology campaign'],
+      ['Chuksco Steel July New Month','Corporate Campaign','corporate campaign'],
+      ['Chuksco Construction July','Construction Campaign','corporate campaign'],
+      ['Sekani July New Month','Lifestyle Campaign','lifestyle campaign'],
+      ['Hitek Gadgets For You','Gadget Retail Campaign','technology campaign'],
+      ['Hitek Sharp, Smart & Yours','Gadget Retail Campaign','technology campaign'],
+      ['Hitek Gadget Accessories','Gadget Retail Campaign','technology campaign'],
+      ['Hitek GoPro Season','Gadget Retail Campaign','technology campaign'],
+      ['Hitek Laptops Made for You','Gadget Retail Campaign','technology campaign'],
+      ['Hitek Game Power Fun','Gadget Retail Campaign','technology campaign']
+    ];
+
+    const logoSheetCard = [...document.querySelectorAll('#logo-grid .logo-project')].find(card => card.dataset.title === 'Latest Logo Collection' || card.classList.contains('latest-collection'));
+    const flyerSheetCard = [...document.querySelectorAll('.portfolio-grid .project')].find(card => card.dataset.title === 'Latest Flyer Collection' || card.classList.contains('latest-collection'));
+    const logoSheet = logoSheetCard?.dataset.image || logoSheetCard?.querySelector('img')?.src;
+    const flyerSheet = flyerSheetCard?.dataset.image || flyerSheetCard?.querySelector('img')?.src;
+    logoSheetCard?.remove();
+    flyerSheetCard?.remove();
+
+    const logoGrid = document.getElementById('logo-grid');
+    if (logoGrid && logoSheet) {
+      logoGrid.insertAdjacentHTML('afterbegin', logoItems.map((item, index) => logoCard(item, index, logoSheet, 4, 5)).join(''));
+    }
+
+    const portfolioGrid = document.querySelector('.portfolio-grid');
+    if (portfolioGrid && flyerSheet) {
+      portfolioGrid.insertAdjacentHTML('afterbegin', flyerItems.map((item, index) => flyerCard(item, index, flyerSheet, 4, Math.ceil(flyerItems.length / 4))).join(''));
+    }
+
+    const count = document.querySelector('.logo-count strong');
+    if (count) count.textContent = String(document.querySelectorAll('#logo-grid .logo-project').length) + '+';
+
+    wireFilters();
+    wireCropLightbox();
+  }
+
+  function safe(value) {
+    return String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+  }
+
+  function cropStyle(sheet, index, cols, rows) {
+    const col = index % cols;
+    const row = Math.floor(index / cols);
+    const x = cols <= 1 ? 0 : (col / (cols - 1)) * 100;
+    const y = rows <= 1 ? 0 : (row / (rows - 1)) * 100;
+    return `background-image:url('${sheet}');background-size:${cols * 100}% ${rows * 100}%;background-position:${x}% ${y}%;`;
+  }
+
+  function cropData(index, sheet, cols, rows) {
+    const col = index % cols;
+    const row = Math.floor(index / cols);
+    return `data-sheet='${sheet}' data-cols='${cols}' data-rows='${rows}' data-col='${col}' data-row='${row}'`;
+  }
+
+  function logoCard(item, index, sheet, cols, rows) {
+    const [name, industry, group, tone] = item;
+    return `<article class='logo-project latest-individual ag-crop-card visible' tabindex='0' data-logo-category='${group}' data-title='${safe(name)}' data-type='${safe(industry)} — Logo Design' data-tone='${tone}' ${cropData(index, sheet, cols, rows)}>
+      <div class='logo-media tone-${tone}'><div class='sheet-crop logo-crop' style="${cropStyle(sheet, index, cols, rows)}"></div></div>
+      <div class='logo-caption'><div><p>${safe(industry)}</p><h3>${safe(name)}</h3></div><span>View</span></div>
+    </article>`;
+  }
+
+  function flyerCard(item, index, sheet, cols, rows) {
+    const [title, type, category] = item;
+    return `<article class='project latest-individual ag-crop-card visible' data-category='${category}' tabindex='0' data-title='${safe(title)}' data-type='${safe(type)}' data-tone='light' ${cropData(index, sheet, cols, rows)}>
+      <div class='project-crop sheet-crop' style="${cropStyle(sheet, index, cols, rows)}"></div>
+      <div class='project-info'><div><p>${safe(type)}</p><h3>${safe(title)}</h3></div><span>View</span></div>
+    </article>`;
+  }
+
+  function wireFilters() {
+    const portfolioFilters = document.querySelectorAll('.work .filter');
+    portfolioFilters.forEach(button => button.addEventListener('click', () => {
+      const value = button.dataset.filter;
+      document.querySelectorAll('.portfolio-grid .project').forEach(project => {
+        const match = value === 'all' || (project.dataset.category || '').split(' ').includes(value);
+        project.classList.toggle('hidden', !match);
+      });
+    }));
+
+    const logoFilters = document.querySelectorAll('.logo-filter');
+    logoFilters.forEach(button => button.addEventListener('click', () => {
+      const value = button.dataset.logoFilter;
+      document.querySelectorAll('#logo-grid .logo-project').forEach(card => {
+        card.classList.toggle('hidden', value !== 'all' && card.dataset.logoCategory !== value);
+      });
+    }));
+  }
+
+  const loadedSheets = new Map();
+  function loadSheet(src) {
+    if (loadedSheets.has(src)) return loadedSheets.get(src);
+    const promise = new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(image);
+      image.onerror = reject;
+      image.src = src;
+    });
+    loadedSheets.set(src, promise);
+    return promise;
+  }
+
+  async function cropToDataUrl(card) {
+    const sheet = card.dataset.sheet;
+    const cols = Number(card.dataset.cols || 1);
+    const rows = Number(card.dataset.rows || 1);
+    const col = Number(card.dataset.col || 0);
+    const row = Number(card.dataset.row || 0);
+    const image = await loadSheet(sheet);
+    const sourceW = image.naturalWidth / cols;
+    const sourceH = image.naturalHeight / rows;
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(sourceW);
+    canvas.height = Math.round(sourceH);
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(image, col * sourceW, row * sourceH, sourceW, sourceH, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/png');
+  }
+
+  function wireCropLightbox() {
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxMedia = lightbox?.querySelector('.lightbox-media');
+    const lightboxImage = lightbox?.querySelector('img');
+    const lightboxTitle = lightbox?.querySelector('h3');
+    const lightboxType = lightbox?.querySelector('p');
+    if (!lightbox || !lightboxMedia || !lightboxImage || !lightboxTitle || !lightboxType) return;
+
+    const open = async card => {
+      lightboxImage.src = await cropToDataUrl(card);
+      lightboxImage.alt = card.dataset.title;
+      lightboxTitle.textContent = card.dataset.title;
+      lightboxType.textContent = card.dataset.type;
+      lightboxMedia.className = `lightbox-media tone-${card.dataset.tone || 'light'}`;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+
+    document.querySelectorAll('.ag-crop-card').forEach(card => {
+      card.addEventListener('click', event => {
+        event.stopPropagation();
+        open(card);
+      });
+      card.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          open(card);
+        }
+      });
+    });
+  }
+})();
