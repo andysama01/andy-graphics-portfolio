@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
-      - name: Decode sprite fragments
+      - name: Reconstruct and split WebP stream
         run: |
           node <<'NODE'
           const fs = require('fs');
@@ -35,28 +35,56 @@ jobs:
               fragmentCount += 1;
             }
           }
-          fs.mkdirSync('assets', {recursive: true});
+          fs.mkdirSync('assets/portfolio-parts', {recursive: true});
           const buffer = Buffer.from(b64, 'base64');
-          fs.writeFileSync('assets/portfolio-sprite.webp', buffer);
-          fs.writeFileSync('assets/portfolio-sprite-meta.json', JSON.stringify({fragmentFiles: files, fragmentCount, base64Length: b64.length, byteLength: buffer.length}, null, 2));
+          fs.writeFileSync('assets/portfolio-stream.bin', buffer);
+          const positions = [];
+          for (let i = 0; i <= buffer.length - 12; i++) {
+            if (buffer.toString('ascii', i, i + 4) === 'RIFF' && buffer.toString('ascii', i + 8, i + 12) === 'WEBP') positions.push(i);
+          }
+          const parts = [];
+          for (let i = 0; i < positions.length; i++) {
+            const start = positions[i];
+            const declaredLength = buffer.readUInt32LE(start + 4) + 8;
+            const end = start + declaredLength;
+            if (end > buffer.length) continue;
+            const name = `part-${String(parts.length + 1).padStart(3, '0')}.webp`;
+            fs.writeFileSync(`assets/portfolio-parts/${name}`, buffer.subarray(start, end));
+            parts.push({name, start, declaredLength});
+          }
+          fs.writeFileSync('assets/portfolio-sprite-meta.json', JSON.stringify({fragmentFiles: files, fragmentCount, base64Length: b64.length, byteLength: buffer.length, riffPositions: positions, parts}, null, 2));
+          if (!parts.length) throw new Error('No complete WebP parts were recovered');
           NODE
-      - name: Create inspectable PDF and image metadata
+      - name: Inspect parts and create contact sheet
         run: |
           python -m pip install --quiet pillow
           python <<'PY'
-          from PIL import Image
-          import json
-          p='assets/portfolio-sprite.webp'
-          im=Image.open(p)
+          from PIL import Image, ImageOps, ImageDraw
+          import glob, json, os, math
+          files=sorted(glob.glob('assets/portfolio-parts/*.webp'))
           meta=json.load(open('assets/portfolio-sprite-meta.json'))
-          meta.update({'width': im.width, 'height': im.height, 'format': im.format})
+          cards=[]
+          details=[]
+          for i,p in enumerate(files,1):
+              im=Image.open(p).convert('RGB')
+              details.append({'file':os.path.basename(p),'width':im.width,'height':im.height,'format':'WEBP'})
+              thumb=ImageOps.contain(im,(260,220))
+              card=Image.new('RGB',(280,260),'white')
+              card.paste(thumb,((280-thumb.width)//2,10))
+              ImageDraw.Draw(card).text((10,238),f'{i:03d}  {im.width}×{im.height}',fill='black')
+              cards.append(card)
+          cols=4; rows=math.ceil(len(cards)/cols)
+          sheet=Image.new('RGB',(cols*280,rows*260),(230,230,230))
+          for i,card in enumerate(cards): sheet.paste(card,((i%cols)*280,(i//cols)*260))
+          sheet.save('assets/portfolio-contact-sheet.jpg',quality=86)
+          sheet.save('assets/portfolio-contact-sheet.pdf','PDF',resolution=96)
+          meta['partDetails']=details
           open('assets/portfolio-sprite-meta.json','w').write(json.dumps(meta,indent=2))
-          im.convert('RGB').save('assets/portfolio-sprite.pdf','PDF',resolution=96)
           PY
-      - name: Commit decoded sprite
+      - name: Commit recovered portfolio assets
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add assets/portfolio-sprite.webp assets/portfolio-sprite.pdf assets/portfolio-sprite-meta.json
-          git commit -m "Decode portfolio sprite assets" || exit 0
+          git add assets/portfolio-stream.bin assets/portfolio-parts assets/portfolio-contact-sheet.jpg assets/portfolio-contact-sheet.pdf assets/portfolio-sprite-meta.json
+          git commit -m "Recover portfolio artwork from sprite stream" || exit 0
           git push origin HEAD:${{ github.event.pull_request.head.ref || github.ref_name }}
