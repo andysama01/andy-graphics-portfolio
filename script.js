@@ -7,7 +7,7 @@
   document.head.appendChild(base);
 
   function runClientStatFixSoon() {
-    [120, 350, 700, 1300, 2500, 4200].forEach(delay => setTimeout(fixClientStat, delay));
+    [120, 350, 700, 1300, 2500, 4200].forEach(delay => setTimeout(() => { fixClientStat(); fixBlackTextLogoBackgrounds(); }, delay));
   }
 
   function addClientStatStyle() {
@@ -134,4 +134,25 @@
     const observer = new MutationObserver(() => fixClientStat());
     observer.observe(heroMeta, { childList: true, subtree: false });
   }
+
+  function fixBlackTextLogoBackgrounds() {
+    const blackTextFiles = [
+      'Richie Forex academy blk.png',
+      'TransferGeld logo -1 (BLK TXT).png',
+      'Web3DigitalConnect logo icon blk v.png'
+    ];
+
+    document.querySelectorAll('.logo-project').forEach(card => {
+      const source = decodeURIComponent(card.dataset.image || '');
+      if (!blackTextFiles.some(filename => source.endsWith(filename))) return;
+
+      card.dataset.tone = 'light';
+      const media = card.querySelector('.logo-media');
+      if (media) {
+        media.classList.remove('tone-dark', 'tone-brand', 'tone-cream');
+        media.classList.add('tone-light', 'black-text-logo');
+      }
+    });
+  }
+
 })();
