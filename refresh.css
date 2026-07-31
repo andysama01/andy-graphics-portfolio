@@ -108,3 +108,32 @@ main,footer{position:relative;z-index:1}.cursor-glow{z-index:2;background:radial
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.hero-card{animation:none}.visual-ring,.floating-note{animation:none}}
 @media (max-width:980px){.hero::after{right:-280px;opacity:.18}.hero-card{animation:none}.statement,.work,.about,.resume,.clients,.logos,.contact{background:#080809}.main-nav{background:rgba(7,7,8,.98);backdrop-filter:blur(18px)}}
 @media (max-width:640px){body::after{opacity:.1}.hero h1{font-size:clamp(46px,14vw,62px)}.hero-meta{grid-template-columns:1fr}.hero-meta{padding:18px}.project:hover,.logo-project:hover{transform:none}.contact{padding-top:60px}}
+
+
+/* About portrait signature */
+.about-persona{position:relative;display:grid;grid-template-columns:minmax(260px,.82fr) minmax(480px,1.18fr);align-items:center;gap:clamp(45px,7vw,110px);margin-top:clamp(70px,9vw,130px);min-height:640px;padding:clamp(36px,5vw,76px);overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:42px;background:radial-gradient(circle at 78% 48%,rgba(255,43,43,.17),transparent 35%),linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));box-shadow:0 38px 100px rgba(0,0,0,.32);isolation:isolate}
+.about-persona::before{content:"ANDY";position:absolute;left:-.045em;bottom:-.24em;z-index:-1;font-size:clamp(150px,23vw,390px);font-weight:900;line-height:1;letter-spacing:-.095em;color:rgba(255,255,255,.025);pointer-events:none}
+.persona-copy{position:relative;z-index:3;max-width:520px}
+.persona-kicker{display:flex;align-items:center;gap:12px;margin:0 0 22px;color:#ff4a4a;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.persona-kicker::before{content:"";width:38px;height:2px;background:#ff2b2b}
+.persona-copy h3{margin:0 0 25px;color:#fff;font-size:clamp(42px,5.5vw,78px);line-height:.94;letter-spacing:-.055em}
+.persona-copy>p:last-child{max-width:460px;margin:0;color:#cfc6bc;font-size:17px;line-height:1.65}
+.persona-stage{position:relative;display:grid;place-items:center;min-height:500px}
+.persona-orbit{position:absolute;width:min(42vw,530px);aspect-ratio:1;border:1px solid rgba(255,255,255,.16);border-radius:50%;animation:personaOrbit 18s linear infinite}
+.persona-orbit::before,.persona-orbit::after{content:"";position:absolute;border-radius:50%;background:#ff2b2b;box-shadow:0 0 25px rgba(255,43,43,.75)}
+.persona-orbit::before{width:10px;height:10px;left:11%;top:12%}
+.persona-orbit::after{width:7px;height:7px;right:6%;bottom:22%}
+.persona-portrait{position:relative;z-index:2;width:min(34vw,430px);aspect-ratio:1;border-radius:50%;overflow:hidden;border:4px solid rgba(255,255,255,.9);background:#111;box-shadow:0 35px 90px rgba(0,0,0,.5),0 0 0 15px rgba(255,43,43,.1),0 0 80px rgba(255,43,43,.24)}
+.persona-portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.13),transparent 35%,rgba(255,43,43,.08));pointer-events:none}
+.persona-portrait img{width:100%;height:100%;display:block;object-fit:cover;object-position:50% 25%;transform:scale(1.04)}
+.persona-bubble{position:absolute;z-index:4;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(10,10,11,.82);box-shadow:0 16px 44px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(14px);color:#fff;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.bubble-genius{top:11%;right:0;animation:personaFloatA 4.8s ease-in-out infinite}
+.bubble-handsome{left:-2%;bottom:20%;animation:personaFloatB 5.4s ease-in-out infinite .45s}
+.bubble-tall{right:3%;bottom:10%;border-color:rgba(255,43,43,.5);background:linear-gradient(135deg,rgba(255,43,43,.94),rgba(138,0,0,.9));animation:personaFloatC 4.2s ease-in-out infinite .8s}
+@keyframes personaOrbit{to{transform:rotate(360deg)}}
+@keyframes personaFloatA{0%,100%{transform:translate3d(0,0,0) rotate(2deg)}50%{transform:translate3d(-10px,-18px,0) rotate(-2deg)}}
+@keyframes personaFloatB{0%,100%{transform:translate3d(0,0,0) rotate(-3deg)}50%{transform:translate3d(12px,-14px,0) rotate(2deg)}}
+@keyframes personaFloatC{0%,100%{transform:translate3d(0,0,0) rotate(3deg)}50%{transform:translate3d(-8px,16px,0) rotate(-2deg)}}
+@media (max-width:1050px){.about-persona{grid-template-columns:1fr;gap:30px;text-align:center}.persona-copy{margin:0 auto}.persona-kicker{justify-content:center}.persona-stage{min-height:560px}.persona-orbit{width:min(72vw,520px)}.persona-portrait{width:min(58vw,420px)}}
+@media (max-width:640px){.about-persona{margin-top:65px;min-height:0;padding:36px 18px 28px;border-radius:26px}.persona-copy h3{font-size:42px}.persona-copy>p:last-child{font-size:15px}.persona-stage{min-height:420px}.persona-orbit{width:330px}.persona-portrait{width:270px}.persona-bubble{min-height:41px;padding:10px 13px;font-size:9px;letter-spacing:.055em}.bubble-genius{top:11%;right:-2%}.bubble-handsome{left:-1%;bottom:18%}.bubble-tall{right:4%;bottom:7%}}
+@media (prefers-reduced-motion:reduce){.persona-orbit,.persona-bubble{animation:none!important}}
