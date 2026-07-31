@@ -4,7 +4,7 @@
   legacy.async = false;
   legacy.onload = () => setTimeout(addUploadedFlyers, 0);
   legacy.onerror = () => {
-    console.warn('Legacy portfolio script could not be loaded. Showing uploaded flyers only.');
+    console.warn('Base portfolio script could not be loaded. Showing uploaded flyer designs only.');
     addUploadedFlyers();
   };
   document.head.appendChild(legacy);
@@ -49,7 +49,11 @@
   ];
 
   function safe(value) {
-    return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;');
   }
 
   function addUploadedFlyers() {
@@ -57,79 +61,48 @@
     if (!grid || grid.dataset.uploadedFlyersAdded === 'true') return;
     grid.dataset.uploadedFlyersAdded = 'true';
 
-    const style = document.createElement('style');
-    style.textContent = `
-      .project.uploaded-flyer{background:#f4f1eb;min-height:520px;box-shadow:0 18px 42px rgba(0,0,0,.22)}
-      .project.uploaded-flyer img{object-fit:contain;background:#f4f1eb;padding:10px;image-rendering:auto;filter:none!important}
-      .project.uploaded-flyer:hover img,.project.uploaded-flyer:focus img{transform:scale(1.01);filter:none!important}
-      .project.uploaded-flyer .project-info{background:linear-gradient(135deg,rgba(185,0,0,.96),rgba(10,10,10,.96));border-radius:16px;padding:14px;left:14px;right:14px;bottom:14px}
-      .project.uploaded-flyer .project-info p{color:#ffd8d8}.project.uploaded-flyer .project-info h3{color:#fff}
-      .project.uploaded-flyer:after{background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.78))}
-      @media(max-width:640px){.project.uploaded-flyer{min-height:540px}}
-    `;
-    document.head.appendChild(style);
-
-    const cards = uploadedFlyers.map((file, index) => {
+    const cards = uploadedFlyers.map((filename, index) => {
       const number = String(index + 1).padStart(2, '0');
-      const src = `assets/work/${file}`;
-      const title = `Recent Flyer ${number}`;
-      const type = 'Uploaded Flyer / Campaign Design';
-      return `<article class="project uploaded-flyer reveal visible" data-category="campaign lifestyle corporate technology" tabindex="0" data-image="${safe(src)}" data-title="${safe(title)}" data-type="${safe(type)}" data-tone="light">
-        <img src="${safe(src)}" alt="${safe(title)}" loading="lazy">
+      const title = `Flyer Design ${number}`;
+      const type = 'Portfolio Campaign Design';
+      const src = `assets/work/${encodeURIComponent(filename)}`;
+      return `<article class="project reveal visible uploaded-flyer" data-category="campaign" tabindex="0" data-image="${src}" data-title="${safe(title)}" data-type="${safe(type)}" data-tone="light">
+        <img src="${src}" alt="${safe(title)} by Andy Graphics" loading="lazy">
         <div class="project-info"><div><p>${safe(type)}</p><h3>${safe(title)}</h3></div><span>View</span></div>
       </article>`;
     }).join('');
 
     grid.insertAdjacentHTML('afterbegin', cards);
-    wireUploadedFlyers();
+    wireUploadedFlyerPreview();
   }
 
-  function wireUploadedFlyers() {
+  function wireUploadedFlyerPreview() {
     const lightbox = document.querySelector('.lightbox');
     const lightboxMedia = lightbox?.querySelector('.lightbox-media');
     const lightboxImage = lightbox?.querySelector('img');
     const lightboxTitle = lightbox?.querySelector('h3');
     const lightboxType = lightbox?.querySelector('p');
-
-    const closeLightbox = () => {
-      if (!lightbox) return;
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    };
-
     const openLightbox = project => {
       if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxType || !lightboxMedia) return;
       lightboxImage.src = project.dataset.image;
-      lightboxImage.alt = project.dataset.title || 'Portfolio preview';
-      lightboxTitle.textContent = project.dataset.title || 'Portfolio preview';
-      lightboxType.textContent = project.dataset.type || 'Campaign Design';
-      lightboxMedia.className = `lightbox-media tone-${project.dataset.tone || 'light'}`;
+      lightboxImage.alt = project.dataset.title;
+      lightboxTitle.textContent = project.dataset.title;
+      lightboxType.textContent = project.dataset.type;
+      lightboxMedia.className = `lightbox-media tone-${project.dataset.tone || 'dark'}`;
       lightbox.classList.add('open');
       lightbox.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     };
 
-    document.querySelectorAll('.project.uploaded-flyer').forEach(project => {
+    document.querySelectorAll('.uploaded-flyer').forEach(project => {
+      if (project.dataset.previewWired === 'true') return;
+      project.dataset.previewWired = 'true';
       project.addEventListener('click', () => openLightbox(project));
       project.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           openLightbox(project);
         }
-      });
-    });
-
-    lightbox?.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
-    lightbox?.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-
-    document.querySelectorAll('.work .filter').forEach(button => {
-      button.addEventListener('click', () => {
-        const value = button.dataset.filter;
-        document.querySelectorAll('.portfolio-grid .project').forEach(project => {
-          const categories = (project.dataset.category || '').split(' ');
-          project.classList.toggle('hidden', value !== 'all' && !categories.includes(value));
-        });
       });
     });
   }
