@@ -1,0 +1,52 @@
+name: Decode portfolio sprite
+
+on:
+  push:
+    paths:
+      - .github/workflows/decode-sprite.yml
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode sprite fragments
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const files = fs.readdirSync('.').filter(f => /^sprite-.*\.js$/.test(f)).sort();
+          let b64 = '';
+          for (const file of files) {
+            const text = fs.readFileSync(file, 'utf8');
+            const match = text.match(/\+\s*"([^"]*)"\s*;?\s*$/s);
+            if (!match) throw new Error(`Could not parse ${file}`);
+            b64 += match[1];
+          }
+          fs.mkdirSync('assets', {recursive: true});
+          const buffer = Buffer.from(b64, 'base64');
+          fs.writeFileSync('assets/portfolio-sprite.webp', buffer);
+          fs.writeFileSync('assets/portfolio-sprite-meta.json', JSON.stringify({fragmentFiles: files, base64Length: b64.length, byteLength: buffer.length}, null, 2));
+          NODE
+      - name: Create inspectable PDF and image metadata
+        run: |
+          python -m pip install --quiet pillow
+          python <<'PY'
+          from PIL import Image
+          import json
+          p='assets/portfolio-sprite.webp'
+          im=Image.open(p)
+          meta=json.load(open('assets/portfolio-sprite-meta.json'))
+          meta.update({'width': im.width, 'height': im.height, 'format': im.format})
+          open('assets/portfolio-sprite-meta.json','w').write(json.dumps(meta,indent=2))
+          im.convert('RGB').save('assets/portfolio-sprite.pdf','PDF',resolution=96)
+          PY
+      - name: Commit decoded sprite
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add assets/portfolio-sprite.webp assets/portfolio-sprite.pdf assets/portfolio-sprite-meta.json
+          git commit -m "Decode portfolio sprite assets" || exit 0
+          git push
