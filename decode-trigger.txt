@@ -1,1 +1,2 @@
 Decode the existing portfolio sprite fragments and commit the resulting image assets.
+Retry with all fragments in the combined sprite files.
